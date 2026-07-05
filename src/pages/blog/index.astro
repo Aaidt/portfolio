@@ -18,7 +18,6 @@ const posts = (await getCollection('blog')).sort(
 		<BaseHead title={`Blog | ${SITE_TITLE}`} description="Technical notes and experiments from Aadit Suryawanshi." />
 	</head>
 	<body>
-		<Header />
 		<main>
 			<section class="blog-hero">
 				<div class="container">
@@ -43,6 +42,7 @@ const posts = (await getCollection('blog')).sort(
 			</section>
 		</main>
 		<Footer />
+		<Header />
 	</body>
 </html>
 
@@ -56,7 +56,7 @@ const posts = (await getCollection('blog')).sort(
 	}
 	.posts-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		grid-template-columns: 1fr;
 		gap: 1rem;
 	}
 	.post-card {
@@ -65,7 +65,7 @@ const posts = (await getCollection('blog')).sort(
 		padding: 1rem;
 		border: 1px solid var(--line);
 		border-radius: 8px;
-		background: rgba(255, 255, 255, 0.5);
+		background: var(--surface-strong);
 		color: rgb(var(--gray-dark));
 		text-decoration: none;
 	}

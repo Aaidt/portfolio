@@ -1,4 +1,6 @@
 ---
+import { SOCIAL_LINKS } from '../consts';
+
 const today = new Date();
 ---
 
@@ -6,18 +8,19 @@ const today = new Date();
 	<div>&copy; {today.getFullYear()} Aadit Suryawanshi. Built with Astro and hosted on GitHub Pages.</div>
 	<div class="social-links">
 		<a href="mailto:codexbuild.dev@gmail.com">Email</a>
-		<a href="https://github.com/Aaidt" target="_blank">GitHub</a>
-		<a href="https://huggingface.co/Aadit-032" target="_blank">Hugging Face</a>
-		<a href="https://www.linkedin.com/in/aadit-suryawanshi-542222316" target="_blank">LinkedIn</a>
+		{SOCIAL_LINKS.map(({ label, href }) => (
+			<a href={href} target="_blank" rel="noopener noreferrer">{label}</a>
+		))}
 	</div>
 </footer>
 <style>
 	footer {
-		padding: 3rem 1rem 5rem;
-		background: #151611;
-		color: rgba(250, 250, 247, 0.72);
+		padding: 3rem 1rem 6rem;
+		background: var(--paper-deep);
+		color: var(--muted);
 		text-align: center;
 		font-size: 0.92rem;
+		border-top: 1px solid var(--line);
 	}
 	.social-links {
 		display: flex;
@@ -28,9 +31,9 @@ const today = new Date();
 	}
 	.social-links a {
 		text-decoration: none;
-		color: #f5b84b;
+		color: var(--accent);
 	}
 	.social-links a:hover {
-		color: #ffffff;
+		color: var(--accent-dark);
 	}
 </style>
