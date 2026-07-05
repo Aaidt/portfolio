@@ -33,13 +33,15 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 					</div>
 				</section>
 				<section class="article-body">
-					<div class="prose article-prose">
-						<slot />
+					<div class="container">
+						<div class="prose article-prose">
+							<slot />
+						</div>
 					</div>
 				</section>
 			</article>
 		</main>
-		<Footer />
+		<!-- <Footer /> -->
 		<Header />
 	</body>
 </html>
@@ -80,6 +82,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	}
 	.article-prose {
 		width: 100%;
+		max-width: 680px;
 		margin: 0 auto;
 	}
 	.article-prose > :first-child {

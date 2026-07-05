@@ -13,10 +13,22 @@ const rabbitHoles = [
 ];
 
 const reads = [
-	'GLM-5.2: Built for Long-Horizon Tasks',
-	'Contextual Retrieval by Anthropic',
-	'Detecting and preventing distillation attacks',
-	'Language Models are Unsupervised Multitask Learners',
+	{
+		title: 'GLM-5.2: Built for Long-Horizon Tasks',
+		href: 'https://arxiv.org/abs/2502.11185',
+	},
+	{
+		title: 'Contextual Retrieval by Anthropic',
+		href: 'https://www.anthropic.com/news/contextual-retrieval',
+	},
+	{
+		title: 'Training Compute-Optimal Large Language Models',
+		href: 'https://arxiv.org/abs/2203.15556',
+	},
+	{
+		title: 'Language Models are Unsupervised Multitask Learners',
+		href: 'https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf',
+	},
 ];
 ---
 
@@ -37,21 +49,6 @@ const reads = [
 							I spend much of my time experimenting with training pipelines, fine-tuning strategies, evaluation
 							methods, and model architectures so I can understand their trade-offs directly.
 						</p>
-						<div class="button-row">
-							<a class="button" href="/blog/">Read the blog</a>
-							<a class="button secondary" href="https://github.com/Aaidt" target="_blank">GitHub</a>
-						</div>
-					</div>
-					<div class="lab-panel" aria-label="Current research dashboard">
-						<div class="panel-topline"><span></span><span></span><span></span></div>
-						<div class="metric"><span>current build</span><strong>LiteGPT</strong></div>
-						<div class="metric-grid">
-							<div><span>params</span><strong>25M</strong></div>
-							<div><span>tokens</span><strong>500M</strong></div>
-							<div><span>stack</span><strong>PyTorch</strong></div>
-							<div><span>focus</span><strong>LLMs</strong></div>
-						</div>
-						<pre><code>train.py --rope --gqa --swiglu --rmsnorm</code></pre>
 					</div>
 				</div>
 			</section>
@@ -86,7 +83,13 @@ const reads = [
 					<div>
 						<p class="kicker">Recent reads</p>
 						<ol class="clean-list numbered">
-							{reads.map((item) => <li>{item}</li>)}
+							{reads.map((item) => (
+								<li>
+									<a href={item.href} target="_blank" rel="noopener noreferrer">
+										{item.title}
+									</a>
+								</li>
+							))}
 						</ol>
 					</div>
 				</div>
@@ -94,38 +97,17 @@ const reads = [
 
 			<section class="project-band">
 				<div class="container project-card">
-					<div>
-						<p class="kicker">Featured article</p>
-						<h2>Building a 25M parameter GPT from scratch</h2>
-						<p>
-							A practical write-up on architecture choices, data mixtures, tokenizers, training issues, and what
-							I learned after training LiteGPT on FineWeb and TinyStories.
-						</p>
-					</div>
-					<div class="button-row">
-						<a class="button" href="/blog/litegpt-25m/">Read article</a>
-						<a class="button secondary" href="https://huggingface.co/Aadit-032/LiteGPT-25M" target="_blank">Model weights</a>
-					</div>
-				</div>
-			</section>
-
-			<section id="contact">
-				<div class="container contact-grid">
-					<div>
-						<p class="kicker">Contact</p>
-						<h2>Send me notes, ideas, or weird model failures.</h2>
-						<p>I also enjoy sci-fi, history, CrossFit, and MMA outside tech.</p>
-					</div>
-					<div class="contact-links">
-						<a href="mailto:codexbuild.dev@gmail.com">codexbuild.dev@gmail.com</a>
-						<a href="https://github.com/Aaidt" target="_blank">github.com/Aaidt</a>
-						<a href="https://www.linkedin.com/in/aadit-suryawanshi-542222316" target="_blank">LinkedIn</a>
-						<a href="https://huggingface.co/Aadit-032" target="_blank">Hugging Face</a>
-					</div>
+					<p class="kicker">Featured article</p>
+					<h2>Building a 25M parameter GPT from scratch</h2>
+					<p>
+						A practical write-up on architecture choices, data mixtures, tokenizers, training issues, and what I
+						learned after training LiteGPT on FineWeb and TinyStories.
+					</p>
+					<a class="button" href="/blog/litegpt-25m/">Read article</a>
 				</div>
 			</section>
 		</main>
-		<Footer />
+		<!-- <Footer /> -->
 		<Header />
 	</body>
 </html>
@@ -136,15 +118,19 @@ const reads = [
 		display: flex;
 		align-items: center;
 		background:
-			linear-gradient(120deg, color-mix(in srgb, var(--paper) 88%, transparent), color-mix(in srgb, var(--paper-deep) 74%, transparent)),
+			linear-gradient(
+				120deg,
+				color-mix(in srgb, var(--paper) 72%, transparent) 0%,
+				color-mix(in srgb, var(--accent) 16%, transparent) 42%,
+				color-mix(in srgb, var(--paper-deep) 86%, transparent) 100%
+			),
 			var(--hero-image);
 		background-size: cover;
 		background-position: center;
 		padding-bottom: 2rem;
 	}
 	.hero-grid,
-	.two-column,
-	.contact-grid {
+	.two-column {
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 2rem;
@@ -157,66 +143,9 @@ const reads = [
 		color: rgb(var(--gray-dark));
 		font-size: clamp(1.05rem, 2vw, 1.35rem);
 	}
-	.lab-panel {
-		padding: 1rem;
-		border: 1px solid var(--line);
-		border-radius: 8px;
-		background: rgba(21, 22, 17, 0.92);
-		box-shadow: var(--box-shadow);
-		color: #faf8f1;
-	}
-	.panel-topline {
-		display: flex;
-		gap: 0.35rem;
-		margin-bottom: 1.5rem;
-	}
-	.panel-topline span {
-		width: 10px;
-		height: 10px;
-		border-radius: 50%;
-		background: #f5b84b;
-	}
-	.panel-topline span:nth-child(2) {
-		background: #7bb982;
-	}
-	.panel-topline span:nth-child(3) {
-		background: #d86b53;
-	}
-	.metric span,
-	.metric-grid span {
-		display: block;
-		color: rgba(250, 248, 241, 0.58);
-		font-size: 0.72rem;
-		text-transform: uppercase;
-	}
-	.metric strong {
-		display: block;
-		font-size: 2.8rem;
-		line-height: 1;
-	}
-	.metric-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 0.75rem;
-		margin: 1.2rem 0;
-	}
-	.metric-grid div {
-		padding: 0.9rem;
-		border: 1px solid rgba(250, 248, 241, 0.12);
-		border-radius: 8px;
-		background: rgba(250, 248, 241, 0.05);
-	}
-	.metric-grid strong {
-		color: #fffdf6;
-		font-size: 1.15rem;
-	}
-	.lab-panel pre {
-		margin: 0;
-		font-size: 0.85rem;
-	}
 	.about-band,
 	.project-band {
-		background: var(--paper-deep);
+		background: transparent;
 	}
 	.lists-grid {
 		display: grid;
@@ -231,10 +160,17 @@ const reads = [
 		gap: 0.8rem;
 	}
 	.clean-list li {
-		padding: 1rem;
-		border: 1px solid var(--line);
-		border-radius: 8px;
-		background: var(--surface);
+		padding: 0.2rem 0;
+		border: none;
+		background: transparent;
+	}
+	.clean-list a {
+		color: rgb(var(--gray-dark));
+		text-decoration: none;
+	}
+	.clean-list a:hover {
+		color: var(--accent);
+		text-decoration: underline;
 	}
 	.numbered {
 		counter-reset: item;
@@ -249,21 +185,11 @@ const reads = [
 	}
 	.project-card {
 		display: grid;
-		grid-template-columns: 1fr;
-		gap: 1.5rem;
+		gap: 0.75rem;
+		max-width: 620px;
 	}
 	.project-card p {
 		max-width: none;
-	}
-	.contact-links {
-		display: grid;
-		gap: 0.75rem;
-	}
-	.contact-links a {
-		padding: 1rem;
-		border: 1px solid var(--line);
-		border-radius: 8px;
-		background: var(--surface);
-		text-decoration: none;
+		margin: 0;
 	}
 </style>

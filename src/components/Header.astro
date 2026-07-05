@@ -8,7 +8,6 @@ import HeaderLink from './HeaderLink.astro';
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
-			<a href="/#contact">Contact</a>
 		</div>
 
 		<span class="divider" aria-hidden="true"></span>
@@ -34,12 +33,7 @@ import HeaderLink from './HeaderLink.astro';
 							</svg>
 						)}
 						{icon === 'huggingface' && (
-							<svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
-								<path
-									fill="currentColor"
-									d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.571a1.714 1.714 0 1 0-.001 3.428A1.714 1.714 0 0 0 12 2.571zm-6.857 7.2a1.714 1.714 0 1 0 0 3.428 1.714 1.714 0 0 0 0-3.429zm13.714 0a1.714 1.714 0 1 0 0 3.428 1.714 1.714 0 0 0 0-3.429zM6.17 16.457c1.2 1.714 3.086 2.829 5.83 2.829s4.63-1.115 5.83-2.829a.571.571 0 0 1 .886-.657c.243.171.514.514.343.757-1.457 2.057-3.857 3.429-6.716 3.429s-5.26-1.372-6.716-3.429a.571.571 0 0 1 .757-.886.571.571 0 0 1 .129.657z"
-								/>
-							</svg>
+							<span class="emoji-icon" aria-hidden="true">🤗</span>
 						)}
 						{icon === 'twitter' && (
 							<svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
@@ -88,10 +82,14 @@ import HeaderLink from './HeaderLink.astro';
 		const root = document.documentElement;
 		if (theme === 'system') {
 			root.removeAttribute('data-theme');
+			root.style.colorScheme = '';
 		} else {
 			root.setAttribute('data-theme', theme);
+			root.style.colorScheme = theme;
 		}
-		localStorage.setItem(STORAGE_KEY, theme);
+		try {
+			localStorage.setItem(STORAGE_KEY, theme);
+		} catch {}
 	}
 
 	function updateToggle(btn: HTMLButtonElement, theme: Theme) {
@@ -102,14 +100,20 @@ import HeaderLink from './HeaderLink.astro';
 			dark: 'Theme: dark',
 		};
 		btn.setAttribute('aria-label', labels[theme]);
+		btn.setAttribute('aria-pressed', String(theme !== 'system'));
 	}
 
 	function initThemeToggle() {
 		const btn = document.querySelector<HTMLButtonElement>('.theme-toggle');
-		if (!btn) return;
+		if (!btn || btn.dataset.initialized === 'true') return;
 
-		const stored = (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? 'system';
-		const theme = CYCLE.includes(stored) ? stored : 'system';
+		btn.dataset.initialized = 'true';
+		let stored: string | null = null;
+		try {
+			stored = localStorage.getItem(STORAGE_KEY);
+		} catch {}
+		const theme = (stored && CYCLE.includes(stored as Theme) ? stored : 'system') as Theme;
+		applyTheme(theme);
 		updateToggle(btn, theme);
 
 		btn.addEventListener('click', () => {
@@ -122,6 +126,7 @@ import HeaderLink from './HeaderLink.astro';
 
 	initThemeToggle();
 	document.addEventListener('astro:page-load', initThemeToggle);
+	document.addEventListener('astro:after-swap', initThemeToggle);
 </script>
 
 <style>
@@ -161,7 +166,9 @@ import HeaderLink from './HeaderLink.astro';
 		justify-content: center;
 		padding: 0.4rem 0.55rem;
 		color: rgb(var(--black));
-		text-decoration: none;
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.18em;
 		font-size: 0.82rem;
 		border-radius: 9999px;
 		transition: color 0.15s, background 0.15s;
@@ -173,6 +180,13 @@ import HeaderLink from './HeaderLink.astro';
 	}
 	.social-links a {
 		padding: 0.45rem;
+	}
+	.emoji-icon {
+		display: inline-flex;
+		align-items: center;
+		font-size: 1rem;
+		line-height: 0.9;
+		transform: translateY(2px);
 	}
 	.divider {
 		width: 1px;

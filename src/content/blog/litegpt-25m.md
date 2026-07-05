@@ -1,7 +1,7 @@
 ---
 title: 'Building a 25M Parameter GPT from Scratch'
 description: 'Architecture choices, tokenizer mistakes, training issues, and lessons from training LiteGPT on FineWeb and TinyStories.'
-pubDate: 2026-01-05
+pubDate: 2026-07-04
 heroImage: '../../assets/blog-placeholder-4.jpg'
 ---
 
