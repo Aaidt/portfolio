@@ -10,7 +10,7 @@ export async function GET(context) {
 		site: context.site,
 		items: posts.map((post) => ({
 			...post.data,
-			link: `/blog/${post.id}/`,
+			link: new URL(`${import.meta.env.BASE_URL}blog/${post.id}/`, context.site).toString(),
 		})),
 	});
 }

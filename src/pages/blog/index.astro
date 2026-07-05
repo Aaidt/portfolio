@@ -29,7 +29,7 @@ const posts = (await getCollection('blog')).sort(
 			<section class="posts-section">
 				<div class="container posts-grid">
 					{posts.map((post) => (
-						<a class="post-card" href={`/blog/${post.id}/`}>
+						<a class="post-card" href={`${import.meta.env.BASE_URL}blog/${post.id}/`}>
 							{post.data.heroImage && <Image width={900} height={480} src={post.data.heroImage} alt="" />}
 							<div>
 								<p class="date"><FormattedDate date={post.data.pubDate} /></p>
