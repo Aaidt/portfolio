@@ -101,7 +101,7 @@ const reads = [
 					<p class="kicker">Projects</p>
 					<div class="projects-grid">
 						{projects.map((project) => (
-							<a class="project-card" href={`/projects/${project.id}/`}>
+							<a class="project-card" href={`${import.meta.env.BASE_URL}projects/${project.id}/`}>
 								{project.data.heroImage && <img src={project.data.heroImage.src} alt="" loading="lazy" />}
 								<div>
 									<h3>{project.data.title}</h3>
@@ -121,7 +121,7 @@ const reads = [
 						A practical write-up on architecture choices, data mixtures, tokenizers, training issues, and what I
 						learned after training LiteGPT on FineWeb and TinyStories.
 					</p>
-					<a class="button" href="/blog/litegpt-25m/">Read article</a>
+					<a class="button" href={`${import.meta.env.BASE_URL}blog/litegpt-25m/`}>Read article</a>
 				</div>
 			</section>
 		</main>
