@@ -1,0 +1,90 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Blog | ${SITE_TITLE}`} description="Technical notes and experiments from Aadit Suryawanshi." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="blog-hero">
+				<div class="container">
+					<p class="kicker">Blog</p>
+					<h1>Notes from the lab.</h1>
+					<p>Long-form writeups on language models, training systems, architecture choices, and what broke along the way.</p>
+				</div>
+			</section>
+			<section class="posts-section">
+				<div class="container posts-grid">
+					{posts.map((post) => (
+						<a class="post-card" href={`/blog/${post.id}/`}>
+							{post.data.heroImage && <Image width={900} height={480} src={post.data.heroImage} alt="" />}
+							<div>
+								<p class="date"><FormattedDate date={post.data.pubDate} /></p>
+								<h2>{post.data.title}</h2>
+								<p>{post.data.description}</p>
+							</div>
+						</a>
+					))}
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.blog-hero {
+		background: var(--paper-deep);
+	}
+	.blog-hero p:not(.kicker) {
+		max-width: 680px;
+		font-size: 1.2rem;
+	}
+	.posts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 1rem;
+	}
+	.post-card {
+		display: grid;
+		gap: 1rem;
+		padding: 1rem;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.5);
+		color: rgb(var(--gray-dark));
+		text-decoration: none;
+	}
+	.post-card:hover {
+		border-color: rgba(176, 95, 24, 0.5);
+		box-shadow: var(--box-shadow);
+		transform: translateY(-2px);
+	}
+	.post-card img {
+		width: 100%;
+		aspect-ratio: 16 / 8;
+		object-fit: cover;
+	}
+	.post-card h2 {
+		font-size: clamp(1.6rem, 4vw, 2.8rem);
+	}
+	.date {
+		margin-bottom: 0.4rem;
+		color: var(--accent);
+		font-size: 0.9rem;
+	}
+</style>
