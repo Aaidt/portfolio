@@ -1,0 +1,89 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`About | ${SITE_TITLE}`}
+			description="A bit about Aadit Suryawanshi — building language models from first principles and learning by shipping systems."
+		/>
+	</head>
+	<body>
+		<main>
+			<section class="about-hero">
+				<div class="container">
+					<p class="kicker">About me</p>
+					<h2>Aadit Suryawanshi</h2>
+					<p class="lede">
+						I like understanding systems beneath the abstractions. Rather than treating models and
+						frameworks as black boxes, I enjoy implementing them from first principles to understand
+						how they work and where their trade-offs lie.
+					</p>
+				</div>
+			</section>
+
+			<section>
+				<div class="container prose">
+					<p>
+						My interests span the full AI stack—from training and evaluating language models to
+						building distributed backend systems, retrieval pipelines, and full-stack AI applications.
+						I'm particularly interested in turning research ideas into reliable, scalable products.
+					</p>
+					<p>
+						I learn by building. Most of my projects begin with a question I'm curious about and grow
+						into end-to-end systems that combine machine learning, software engineering, and practical
+						experimentation.
+					</p>
+			
+					<h3>What I've Been Up To</h3>
+					<p>I've always been curious about how things work. As a kid, 
+						I spent way too much time building random projects, taking things apart, 
+						and dreaming about becoming a scientist one day.
+					</p>
+					<p>When I was 18, my interests took a sharp turn. For reasons that mostly involved watching one too many military movies, 
+						I decided I wanted to join the Indian Army. I cleared the written examination three times, 
+						but the selection process doesn't end there. Candidates also go through a five-day assessment called the SSB interview that 
+						tests leadership, decision-making, communication, teamwork, and psychological aptitude. 
+						I made it to that stage every time but was eventually conferenced out.
+					</p>
+					<p>That chapter ended, so naturally I thought, "What's the next best thing?" The obvious answer, 
+						apparently, was becoming an MMA fighter.
+					</p>
+					<p>I trained for about a year, competed in Brazilian Jiu-Jitsu, and even won a tournament in the 67 kg division. More importantly, I learned discipline, consistency, 
+						and that getting choked repeatedly is a surprisingly effective teacher.
+					</p>
+					<p>Eventually I realized that while I loved training, I didn't want to dedicate my life to fighting.</p>
+					<p>Around that time I found my way back to programming. At first I was just building things and trying different areas of software, 
+						but over time I became fascinated by machine learning and AI. Reading research papers, implementing ideas from scratch, 
+						and running my own experiments reminded me of the kid who wanted to be a scientist—not because of the title, 
+						but because discovering how things work is genuinely fun.
+					</p>
+					<p>These days I'm happiest when I'm building AI systems, training models, or spending hours understanding a paper well enough to implement it myself. 
+						There's still a lot I don't know, which is probably my favorite part.
+						 I plan to keep learning, keep experimenting, and hopefully contribute something meaningful along the way.
+					</p>
+					<p>Anyway, thanks for reading.</p>
+				</div>
+			</section>
+		</main>
+		<Header />
+	</body>
+</html>
+
+<style>
+	.about-hero {
+		background: var(--paper-deep);
+	}
+	.lede {
+		max-width: none;
+		font-size: 1.2rem;
+		color: rgb(var(--gray-dark));
+	}
+	.about-body .prose p {
+		max-width: none;
+	}
+</style>

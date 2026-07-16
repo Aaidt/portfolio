@@ -6,15 +6,6 @@ heroImage: '../../assets/recallos.png'
 ---
 <div align="center">
 
-```text
-██████╗ ███████╗ ██████╗ █████╗ ██╗     ██╗           ██████╗ ███████╗
-██╔══██╗██╔════╝██╔════╝██╔══██╗██║     ██║          ██╔═══██╗██╔════╝
-██████╔╝█████╗  ██║     ███████║██║     ██║    ████╗ ██║   ██║███████╗
-██╔══██╗██╔══╝  ██║     ██╔══██║██║     ██║          ██║   ██║╚════██║
-██║  ██║███████╗╚██████╗██║  ██║███████╗███████╗     ╚██████╔╝███████║
-╚═╝  ╚═╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝      ╚═════╝ ╚══════╝
-```
-
 ### Organizational memory for your documents
 
 Upload PDFs. Index them. Ask questions with hybrid retrieval and source citations.
@@ -23,11 +14,11 @@ Upload PDFs. Index them. Ask questions with hybrid retrieval and source citation
 
 ---
 
-# What is RecallOS?
+## What is RecallOS?
 
 RecallOS is a personal knowledge OS: ingest PDFs, embed them with dense + sparse vectors, and chat over them with hybrid retrieval, cross-encoder reranking, and grounded answers.
 
-**Implemented today**
+**Implemented**
 
 - PDF upload via MinIO presigned URLs
 - Async ingestion workers (Redis Streams + LlamaParse)
@@ -41,7 +32,7 @@ RecallOS is a personal knowledge OS: ingest PDFs, embed them with dense + sparse
 
 ---
 
-# Tech Stack
+## Tech Stack
 
 | Layer             | Technology                                           |
 | ----------------- | ---------------------------------------------------- |
@@ -64,7 +55,7 @@ RecallOS is a personal knowledge OS: ingest PDFs, embed them with dense + sparse
 
 ---
 
-# Repository Structure
+## Repository Structure
 
 ```text
 apps/
@@ -89,7 +80,7 @@ specs/          # Design notes used while building features
 
 ---
 
-# Architecture
+## Architecture
 
 ```text
   +-----------+         presigned PUT          +--------+
@@ -126,7 +117,7 @@ specs/          # Design notes used while building features
 
 ---
 
-# Ingestion Pipeline
+## Ingestion Pipeline
 
 Only **PDFs** are accepted (`application/pdf`).
 
@@ -152,7 +143,7 @@ Contextual chunk enrichment (LLM situates each chunk in the document) exists in 
 
 ---
 
-# Retrieval & Chat
+## Retrieval & Chat
 
 ```text
 User message
@@ -180,7 +171,7 @@ OpenRouter stream (SSE)
 Answer + sourceChunks stored on the assistant message
 ```
 
-### Chat features
+#### Chat features
 
 - Create session on first message
 - Streamed replies over SSE
@@ -192,7 +183,7 @@ Answer + sourceChunks stored on the assistant message
 
 ---
 
-# API Surface
+## API Surface
 
 Base path: `/api/v1` (JWT middleware on all routes except auth).
 
@@ -208,7 +199,7 @@ Document delete removes the Postgres row, MinIO object, stream job (if still que
 
 ---
 
-# Frontend
+## Frontend
 
 | Route                | Purpose                                             |
 | -------------------- | --------------------------------------------------- |
@@ -219,7 +210,7 @@ Document delete removes the Postgres row, MinIO object, stream job (if still que
 
 ---
 
-# Data Model (Postgres)
+## Data Model (Postgres)
 
 | Model      | Role                                                                                            |
 | ---------- | ----------------------------------------------------------------------------------------------- |
@@ -234,7 +225,7 @@ Chunk vectors live only in **Qdrant**, not as a Postgres table.
 
 ---
 
-# Storage Roles
+## Storage Roles
 
 | Store             | What it holds                                     |
 | ----------------- | ------------------------------------------------- |
@@ -247,7 +238,7 @@ There is **no OpenSearch** in this codebase. Lexical signal comes from **SPLADE 
 
 ---
 
-# Observability
+## Observability
 
 `@repo/langfuse` instruments:
 
@@ -259,9 +250,9 @@ If Langfuse keys are missing, tracing no-ops.
 
 ---
 
-# Local Development
+## Local Development
 
-### Prerequisites
+#### Prerequisites
 
 - Bun ≥ 1.3
 - PostgreSQL
@@ -270,7 +261,7 @@ If Langfuse keys are missing, tracing no-ops.
 - Qdrant
 - API keys: LlamaCloud, OpenRouter; optional HF, Exa, Langfuse
 
-### Install & run
+#### Install & run
 
 ```bash
 bun install
@@ -297,7 +288,7 @@ bun run --filter workers dev   # or: cd apps/workers && bun run index.ts
 
 ---
 
-# Design Principles (as built)
+## Design Principles (as built)
 
 - **Async ingest** — uploads never block on parse/embed
 - **Hybrid retrieval** — dense meaning + sparse terms, fused with RRF
@@ -308,7 +299,7 @@ bun run --filter workers dev   # or: cd apps/workers && bun run index.ts
 
 ---
 
-# Future scope
+## Future scope
 
 - PowerPoint / image / video ingest
 - Whisper transcription or vision captioning

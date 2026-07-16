@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
-import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import HeroImage from "../assets/blog-placeholder-4.jpg";
@@ -11,12 +10,17 @@ const projects = (await getCollection("projects")).sort(
 );
 
 const rabbitHoles = [
+  "Experimenting with how AI systems can remember, retrieve, and reason over knowledge across conversations and documents.",
   "Training GPT-style language models from scratch in PyTorch",
   "Reinforcement learning environments",
   "Fine-tuning open-source LLMs for medical QA",
 ];
 
 const reads = [
+  {
+    title: "Reinforcement Learning: An Introduction",
+    href: "http://incompleteideas.net/book/the-book-2nd.html"
+  },
   {
     title: "GLM-5.2: Built for Long-Horizon Tasks",
     href: "https://z.ai/blog/glm-5.2",
@@ -54,9 +58,6 @@ const reads = [
           </div>
         </div>
       </section>
-
-      <!-- <section class="about-band"> -->
-      <!-- </section> -->
 
       <section>
         <div class="container">
@@ -112,71 +113,6 @@ const reads = [
               }
             </ol>
           </div>
-
-          <!-- <div class="container two-column"> -->
-          <div>
-            <p class="kicker">About me</p>
-          </div>
-          <!-- <div class="prose"> -->
-          <p>
-            I like understanding systems beneath the abstractions. Rather than
-            treating models and frameworks as black boxes, I enjoy implementing
-            them from first principles to understand how they work and where
-            their trade-offs lie.
-          </p>
-          <p>
-            My interests span the full AI stack—from training and evaluating
-            language models to building distributed backend systems, retrieval
-            pipelines, and full-stack AI applications. I'm particularly
-            interested in turning research ideas into reliable, scalable
-            products.
-          </p>
-          <p>
-            I learn by building. Most of my projects begin with a question I'm
-            curious about and grow into end-to-end systems that combine machine
-            learning, software engineering, and practical experimentation.
-          </p>
-
-          <!-- <div>
-            <p class="kicker">What have I been upto</p>
-          </div>
-          <p>
-            I knew I loved tech even as a kid, I built stupid projects [image]
-            and always dreamt about being a scientist onday [image]
-          </p>
-
-          <p>
-            When i was 18, puberty changed me 360 and for some reason I really
-            wanted to join the army (I saw some really good movies....) I
-            cleared the written exam 3 times but got conferenced out (didnt
-            clear the 5 day interview process) [explain process]
-          </p>
-
-          <p>
-            After that I thought to myself, whats the next best thing? Oh i
-            know, lets be an MMA fighter, that seems fun(it was not...)
-          </p>
-
-          <p>
-            I got decent at fighting, I could hold myself in a fight and also
-            won a jiu-jitsu torunament at 67kgs. [image]
-          </p>
-
-          <p>
-            After I realised that I dont want to sacrifice my life to be a
-            fighter, I got inspired (again by a few yt videos) to start getting
-            into tech again. I started out pretty slow and uncertain and it took
-            me a lot of time to find what I really liked, but reading research
-            papers and coding out experiments and reading about RL brought back
-            that kid that just wanted to be a scientist and have fun and
-            experiment. I quite enjoy what I do now and Im planning on having
-            fun on a much larger scale and contribute to this space.
-          </p>
-
-          <p>Anyway thanks for reading.</p> -->
-
-          <!-- </div> -->
-          <!-- </div> -->
         </div>
       </section>
 
@@ -232,7 +168,6 @@ const reads = [
     color: rgb(var(--gray-dark));
     font-size: clamp(1.05rem, 2vw, 1.35rem);
   }
-  .about-band,
   .project-band {
     background: transparent;
   }
